@@ -1,0 +1,14 @@
+version: '3'
+services:
+  server:
+      image: 'node:10-alpine'
+      container_name: otl-dl-server
+      working_dir: /application
+      ports:
+        - "3141:3141"
+      volumes:
+        - .:/application/source
+        - ./var/log:/application/log
+        - ./var/data:/application/data
+      command:
+        - source/start_docker.sh
