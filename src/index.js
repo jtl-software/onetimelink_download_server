@@ -23,7 +23,16 @@ const onRequest = (request, response) => {
     const requestPath = url.parse(request.url).pathname;
     const input = requestPath.split('/')[1];
     const payload = Buffer.from(input, 'base64').toString();
-    const payloadObject = JSON.parse(payload);
+    let payloadObject = {};
+    logger.info(`Received payload ${payload}`);
+
+    try {
+        payloadObject = JSON.parse(payload);
+    } catch (e) {
+        logger.error('Cannot parse payload, exiting...');
+        return;
+    }
+
     const {linkHash, attachmentHash, attachmentName, auth} = payloadObject;
     const shortHash = attachmentHash.substring(0, 2);
     const attachmentLocation = path.resolve(config.dataLocation, shortHash, attachmentHash);
