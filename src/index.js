@@ -21,7 +21,7 @@ const logger = winston.createLogger({
 
 const onRequest = (request, response) => {
     const requestPath = url.parse(request.url).pathname;
-    const input = requestPath.split('/')[1];
+    const input = requestPath.split('/')[2];
     const payload = Buffer.from(input, 'base64').toString();
     let payloadObject = {};
     logger.info(`Received payload ${payload}`);
