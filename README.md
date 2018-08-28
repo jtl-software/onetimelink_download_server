@@ -17,5 +17,7 @@
 And you're done! You can peek into the running docker container using `sudo docker-compose logs -f` or look into the logfile located
 at *var/log/app.log* to view the server output.
 
-
-
+**Important note**: The base64 payload must not come after the host.
+The following call would be invalid: http://\<my-host\>/\<base64-payload\>
+Instead, you must preceed the base64 payload with a path like so:
+http://\<my-host\>/some-arbitrary-path/\<base64-payload\>
