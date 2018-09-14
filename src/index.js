@@ -40,7 +40,7 @@ const onRequest = (request, response) => {
     const logID = crypto.createHash('SHA512')
         .update(request.rawHeaders.reduce((a, b) => {return a + b;}) + requestPath + payload)
         .digest('hex')
-        .slice(0, 32);
+        .slice(0, 8);
     let payloadObject = {};
     logger.info(`Received payload ${payload}`, {id: logID});
 
