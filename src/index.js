@@ -65,7 +65,7 @@ const onRequest = (request, response) => {
     send(request, attachmentLocation, {etag: false, cacheControl: false})
         .on('headers', (res) => {
             res.setHeader('Cache-Control', 'no-cache');
-            res.setHeader('Content-Disposition', `attachment; filename="${attachmentName}"`);
+            res.setHeader('Content-Disposition', `attachment; filename="${encodeURIComponent(attachmentName)}"`);
         })
         .on('end', () => {
             logger.info('Download done', {id: logID});
