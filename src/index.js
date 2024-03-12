@@ -52,6 +52,14 @@ const onRequest = (request, response) => {
     }
 
     const {linkHash, attachmentHash, attachmentName, auth} = payloadObject;
+
+    if (attachmentHash.includes('.') || attachmentHash.includes('/')) {
+        logger.error('Attachment hash contains invalid characters', {id: logID});
+        response.writeHead(404, {'Content-Type': 'text/plain'});
+        response.end();
+        return;
+    }
+
     const shortHash = attachmentHash.substring(0, 2);
     const attachmentLocation = path.resolve(config.dataLocation, shortHash, attachmentHash);
     logger.info(`OTL Hash ${linkHash} with attachment ${attachmentHash} requested with payload ${payload}`, {id: logID});
